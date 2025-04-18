@@ -37,7 +37,7 @@ export default function Button({
   
   // Format-specific classes
   const formatClasses = {
-    primary: 'lightning-btn text-white font-bold hover:transform hover:-translate-y-1 hover:shadow-lg',
+    primary: 'bg-indigo-500 bg-linear-to-r from-sky-500 to-indigo-500 text-white font-bold',
     secondary: 'border border-gray-600 text-gray-300 hover:bg-gray-800',
     tertiary: 'bg-gray-700 text-gray-300 hover:bg-gray-600',
   };
