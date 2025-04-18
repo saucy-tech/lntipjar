@@ -251,27 +251,27 @@ export default function TipJar() {
               <label className="block text-sm font-medium mb-2">Select Amount (sats)</label>
               <div className="grid grid-cols-2 gap-3">
                 {[21, 404, 1000, 20000].map((amount) => (
-                  <button
+                  <Button
                     key={amount}
-                    className={`amount-btn p-2 rounded-md cursor-pointer ${
-                      selectedAmount === amount ? 'active' : ''
-                    }`}
+                    size="m"
+                    format={selectedAmount === amount ? 'primary' : 'tertiary'}
                     onClick={() => handleAmountSelect(amount as AmountOption)}
+                    className="py-2"
                   >
                     {amount} sats
-                  </button>
+                  </Button>
                 ))}
               </div>
               
               <div className="mt-3 flex items-center">
-                <button
-                  className={`amount-btn p-2 rounded-md mr-2 cursor-pointer ${
-                    selectedAmount === 'custom' ? 'active' : ''
-                  }`}
+                <Button
+                  size="m"
+                  format={selectedAmount === 'custom' ? 'primary' : 'tertiary'}
                   onClick={() => handleAmountSelect('custom')}
+                  className="mr-2 py-2"
                 >
                   Custom
-                </button>
+                </Button>
                 {selectedAmount === 'custom' && (
                   <input
                     type="text"
@@ -311,7 +311,7 @@ export default function TipJar() {
               <div className="text-xs text-gray-400 text-center mt-2 flex flex-col gap-2">
                 Using LNBits at {process.env.APP_MODE === 'real' && !useMock ? 'phoenix.delineator.media' : 'mock mode'} 
                 {isDev && 
-                    <Button
+                  <Button
                     format="tertiary"
                     size="xs"
                     className='mx-auto'
