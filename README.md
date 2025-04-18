@@ -2,15 +2,6 @@
 
 A simple web application that allows users to leave tips using the Bitcoin Lightning Network.
 
-## Features
-
-- Select from preset tip amounts (21, 404, 1000, or 20000 sats) or enter a custom amount
-- Add an optional message with your tip
-- QR code generation for Lightning Network invoices
-- Real-time payment detection
-- Celebration animation when payment is received
-- Modern, dark-mode UI with gradient accents
-
 ## Tech Stack
 
 - Next.js 15
@@ -37,11 +28,6 @@ A simple web application that allows users to leave tips using the Bitcoin Light
    LNBITS_INVOICE_READ_KEY=your-invoice-read-key
    LNBITS_URL=https://legend.lnbits.com
    ```
-
-   To get your LNBits API keys:
-   - Create an account at [LNBits](https://legend.lnbits.com/) or use your own LNBits instance
-   - Create a new wallet
-   - Go to API info to get your admin key and invoice/read key
 
 4. Run the development server
    ```
