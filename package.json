@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
+    "classnames": "^2.5.1",
     "confetti-react": "^2.6.0",
     "lnurl-pay": "^4.0.0",
     "next": "15.3.1",

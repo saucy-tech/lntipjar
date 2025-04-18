@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import axios from 'axios';
 import ReactConfetti from 'react-confetti';
+import Button from './Button';
 
 type TipJarState = 'select' | 'pay' | 'success';
 type AmountOption = 21 | 404 | 1000 | 20000 | 'custom';
@@ -231,12 +232,14 @@ export default function TipJar() {
           <div className="p-2 bg-gray-800 rounded-md mb-2">
             <p className="text-gray-400">Development Mode</p>
             <p className="text-gray-300">Using {useMock ? 'mock invoices' : 'real LNBits API'}</p>
-            <button 
+            <Button 
+              size="xs"
+              format="tertiary"
               onClick={toggleMockMode}
-              className="mt-2 px-2 py-1 text-xs bg-gray-700 rounded hover:bg-gray-600 cursor-pointer"
+              className="mt-2"
             >
               Switch to {useMock ? 'real LNBits API' : 'mock invoices'}
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -294,26 +297,28 @@ export default function TipJar() {
             
             {error && <p className="text-red-500 text-sm p-2 bg-red-500/10 rounded-md">{error}</p>}
             
-            <button
+            <Button
+              format="primary"
+              size="l"
+              fullWidth
               onClick={generateInvoice}
               disabled={isGeneratingInvoice}
-              className={`lightning-btn w-full py-3 px-4 rounded-md text-black font-bold flex items-center justify-center cursor-pointer ${
-                isGeneratingInvoice ? 'opacity-70 cursor-not-allowed' : ''
-              }`}
             >
               {isGeneratingInvoice ? 'Generating...' : 'Leave a Tip ⚡'}
-            </button>
+            </Button>
 
             {!useMock && (
               <p className="text-xs text-gray-400 text-center mt-2">
                 Using LNBits at {process.env.APP_MODE === 'real' && !useMock ? 'phoenix.delineator.media' : 'mock mode'} 
                 {isDev && 
-                  <button
-                    className="ml-2 text-xs text-purple-400 underline"
+                  <Button
+                    format="tertiary"
+                    size="xs"
+                    className="ml-2 text-purple-400 underline bg-transparent px-1 py-0"
                     onClick={toggleMockMode}
                   >
                     Use {useMock ? 'real API' : 'mock mode'} instead
-                  </button>
+                  </Button>
                 }
               </p>
             )}
@@ -343,12 +348,14 @@ export default function TipJar() {
                   readOnly
                   className="w-full p-2 bg-gray-800 rounded-l-md text-xs font-mono focus:outline-none"
                 />
-                <button
+                <Button
+                  format="tertiary"
+                  size="m"
                   onClick={copyToClipboard}
-                  className="bg-gray-700 px-3 rounded-r-md hover:bg-gray-600 cursor-pointer"
+                  className="rounded-l-none rounded-r-md"
                 >
                   Copy
-                </button>
+                </Button>
               </div>
               
               <p className="text-sm text-gray-400 mb-4">
@@ -356,21 +363,24 @@ export default function TipJar() {
               </p>
               
               {isDev && (
-                <button
+                <Button
+                  format="tertiary"
+                  size="xs"
                   onClick={simulatePay}
-                  className="text-xs py-1 px-2 bg-gray-700 rounded text-gray-300 hover:bg-gray-600 cursor-pointer"
                 >
                   [DEV] Simulate Payment
-                </button>
+                </Button>
               )}
             </div>
             
-            <button
+            <Button
+              format="secondary"
+              size="m"
+              fullWidth
               onClick={resetForm}
-              className="w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:bg-gray-800 cursor-pointer"
             >
               Cancel
-            </button>
+            </Button>
           </div>
         )}
 
@@ -399,12 +409,14 @@ export default function TipJar() {
               </p>
             </div>
             
-            <button
+            <Button
+              format="primary"
+              size="l"
+              fullWidth
               onClick={resetForm}
-              className="lightning-btn w-full py-3 px-4 rounded-md text-black font-bold"
             >
               Send Another Tip ⚡
-            </button>
+            </Button>
           </div>
         )}
       </div>
