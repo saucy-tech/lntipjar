@@ -236,7 +236,7 @@ export default function TipJar() {
               size="xs"
               format="tertiary"
               onClick={toggleMockMode}
-              className="mt-2"
+              className="mt-2 mx-auto"
             >
               Switch to {useMock ? 'real LNBits API' : 'mock invoices'}
             </Button>
@@ -308,19 +308,19 @@ export default function TipJar() {
             </Button>
 
             {!useMock && (
-              <p className="text-xs text-gray-400 text-center mt-2">
+              <div className="text-xs text-gray-400 text-center mt-2 flex flex-col gap-2">
                 Using LNBits at {process.env.APP_MODE === 'real' && !useMock ? 'phoenix.delineator.media' : 'mock mode'} 
                 {isDev && 
-                  <Button
+                    <Button
                     format="tertiary"
                     size="xs"
-                    className="ml-2 text-purple-400 underline bg-transparent px-1 py-0"
+                    className='mx-auto'
                     onClick={toggleMockMode}
                   >
                     Use {useMock ? 'real API' : 'mock mode'} instead
                   </Button>
                 }
-              </p>
+              </div>
             )}
           </div>
         )}
@@ -367,6 +367,7 @@ export default function TipJar() {
                   format="tertiary"
                   size="xs"
                   onClick={simulatePay}
+                  className='mx-auto'
                 >
                   [DEV] Simulate Payment
                 </Button>
