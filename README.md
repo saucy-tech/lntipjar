@@ -34,7 +34,6 @@ A simple web application that allows users to leave tips using the Bitcoin Light
 
 3. Create a `.env.local` file with your LNBits credentials
    ```
-   LNBITS_ADMIN_KEY=your-admin-key
    LNBITS_INVOICE_READ_KEY=your-invoice-read-key
    LNBITS_URL=https://legend.lnbits.com
    ```
