@@ -9,9 +9,6 @@ import Button from './Button';
 type TipJarState = 'select' | 'pay' | 'success';
 type AmountOption = 21 | 404 | 1000 | 20000 | 'custom';
 
-// Helper to check if we're in development mode
-const isDev = process.env.NODE_ENV === 'development';
-
 export default function TipJar() {
   const [state, setState] = useState<TipJarState>('select');
   const [selectedAmount, setSelectedAmount] = useState<AmountOption>(21);
@@ -26,26 +23,8 @@ export default function TipJar() {
     height: 800
   });
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState<boolean>(false);
-  const [useMock, setUseMock] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   
   const pollTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Check current mode on component mount
-  useEffect(() => {
-    const checkMode = async () => {
-      try {
-        const response = await axios.get('/api/mode');
-        setUseMock(response.data.useMock);
-      } catch (err) {
-        console.error('Error checking mode:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    checkMode();
-  }, []);
 
   useEffect(() => {
     // Set window size once component is mounted
@@ -118,12 +97,8 @@ export default function TipJar() {
       startPolling(response.data.paymentHash);
     } catch (err: any) {
       console.error('Error generating invoice:', err);
-      // Check for specific LNBits connection error
-      if (err.response?.data?.error?.includes("Unable to connect") || err.response?.status === 520) {
-        setError("The Lightning Network node is currently unavailable. Please try again later.");
-      } else {
-        setError(err.response?.data?.error || 'Failed to generate invoice. Please try again.');
-      }
+      // Friendly error message regardless of error type
+      setError("Sorry, we couldn't connect to the Lightning Network at this time. Please try again later.");
     } finally {
       setIsGeneratingInvoice(false);
     }
@@ -145,6 +120,7 @@ export default function TipJar() {
         }
       } catch (err) {
         console.error('Error checking payment status:', err);
+        // We don't show errors during polling as it might be temporary
       }
     }, 3000);
   };
@@ -173,43 +149,6 @@ export default function TipJar() {
     }
   };
 
-  // This function simulates a payment in development mode
-  const simulatePay = async () => {
-    try {
-      const response = await axios.get(`/api/invoice?paymentHash=${paymentHash}&simulate=true`);
-      if (response.data.paid) {
-        clearInterval(pollTimerRef.current as NodeJS.Timeout);
-        setState('success');
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 5000);
-      }
-    } catch (err) {
-      console.error('Error simulating payment:', err);
-    }
-  };
-
-  // Toggle between mock mode and real LNBits API (for development only)
-  const toggleMockMode = async () => {
-    try {
-      const response = await axios.post('/api/mode', {
-        useMock: !useMock
-      });
-      setUseMock(response.data.useMock);
-      // Refresh page to ensure the backend sees the updated setting
-      window.location.reload();
-    } catch (err) {
-      console.error('Error toggling mock mode:', err);
-    }
-  };
-
-  if (isLoading && isDev) {
-    return (
-      <div className="w-full max-w-md mx-auto p-6 text-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full max-w-md mx-auto p-6">
       {showConfetti && (
@@ -226,23 +165,6 @@ export default function TipJar() {
         <h1 className="text-3xl font-bold mb-2 gradient-text">Lightning Tip Jar</h1>
         <p className="text-gray-300">Support with Bitcoin Lightning ⚡</p>
       </div>
-      
-      {isDev && (
-        <div className="mb-4 text-xs text-center">
-          <div className="p-2 bg-gray-800 rounded-md mb-2">
-            <p className="text-gray-400">Development Mode</p>
-            <p className="text-gray-300">Using {useMock ? 'mock invoices' : 'real LNBits API'}</p>
-            <Button 
-              size="xs"
-              format="tertiary"
-              onClick={toggleMockMode}
-              className="mt-2 mx-auto"
-            >
-              Switch to {useMock ? 'real LNBits API' : 'mock invoices'}
-            </Button>
-          </div>
-        </div>
-      )}
       
       <div className="gradient-border rounded-lg p-6">
         {state === 'select' && (
@@ -295,7 +217,11 @@ export default function TipJar() {
               />
             </div>
             
-            {error && <p className="text-red-500 text-sm p-2 bg-red-500/10 rounded-md">{error}</p>}
+            {error && (
+              <div className="bg-red-500/10 rounded-md p-3">
+                <p className="text-red-500 text-sm">{error}</p>
+              </div>
+            )}
             
             <Button
               format="primary"
@@ -306,22 +232,6 @@ export default function TipJar() {
             >
               {isGeneratingInvoice ? 'Generating...' : 'Leave a Tip ⚡'}
             </Button>
-
-            {!useMock && (
-              <div className="text-xs text-gray-400 text-center mt-2 flex flex-col gap-2">
-                Using LNBits at {process.env.APP_MODE === 'real' && !useMock ? 'phoenix.delineator.media' : 'mock mode'} 
-                {isDev && 
-                  <Button
-                    format="tertiary"
-                    size="xs"
-                    className='mx-auto'
-                    onClick={toggleMockMode}
-                  >
-                    Use {useMock ? 'real API' : 'mock mode'} instead
-                  </Button>
-                }
-              </div>
-            )}
           </div>
         )}
 
@@ -361,17 +271,6 @@ export default function TipJar() {
               <p className="text-sm text-gray-400 mb-4">
                 Waiting for payment... The page will update automatically when payment is received.
               </p>
-              
-              {isDev && (
-                <Button
-                  format="tertiary"
-                  size="xs"
-                  onClick={simulatePay}
-                  className='mx-auto'
-                >
-                  [DEV] Simulate Payment
-                </Button>
-              )}
             </div>
             
             <Button

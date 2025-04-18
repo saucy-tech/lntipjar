@@ -37,9 +37,6 @@ A simple web application that allows users to leave tips using the Bitcoin Light
    LNBITS_ADMIN_KEY=your-admin-key
    LNBITS_INVOICE_READ_KEY=your-invoice-read-key
    LNBITS_URL=https://legend.lnbits.com
-   
-   # Set to 'true' to use real LNBits API in development
-   USE_REAL_LNBITS=false
    ```
 
    To get your LNBits API keys:
@@ -54,15 +51,9 @@ A simple web application that allows users to leave tips using the Bitcoin Light
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Development vs Production Mode
+## LNBits Configuration
 
-In development mode (`yarn dev`), the application uses mock invoices by default to allow for testing without a real LNBits instance. You can toggle this behavior by:
-
-1. Setting `USE_REAL_LNBITS=true` in your `.env.local` file
-2. The UI will indicate when you're in development mode and whether you're using mock invoices or the real LNBits API
-3. Use the "[DEV] Simulate Payment" button to test the payment flow
-
-In production mode (`yarn build` followed by `yarn start`), the application always uses the real LNBits API.
+This application requires a valid LNBits setup to function properly. You must configure your environment variables with valid LNBits API keys for both development and production use.
 
 ## Deployment
 
