@@ -3,9 +3,9 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --accent: #facc15;
+  --accent: #3b82f6;
   --secondary: #8b5cf6;
-  --gradient-start: #facc15;
+  --gradient-start: #3b82f6;
   --gradient-end: #8b5cf6;
 }
 
@@ -34,7 +34,6 @@ body {
   position: relative;
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.05);
-  padding: 1px;
 }
 
 .gradient-border::before {

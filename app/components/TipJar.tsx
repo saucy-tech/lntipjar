@@ -233,7 +233,7 @@ export default function TipJar() {
             <p className="text-gray-300">Using {useMock ? 'mock invoices' : 'real LNBits API'}</p>
             <button 
               onClick={toggleMockMode}
-              className="mt-2 px-2 py-1 text-xs bg-gray-700 rounded hover:bg-gray-600"
+              className="mt-2 px-2 py-1 text-xs bg-gray-700 rounded hover:bg-gray-600 cursor-pointer"
             >
               Switch to {useMock ? 'real LNBits API' : 'mock invoices'}
             </button>
@@ -241,7 +241,7 @@ export default function TipJar() {
         </div>
       )}
       
-      <div className="gradient-border p-6 rounded-lg">
+      <div className="gradient-border rounded-lg p-6">
         {state === 'select' && (
           <div className="space-y-6">
             <div>
@@ -250,7 +250,7 @@ export default function TipJar() {
                 {[21, 404, 1000, 20000].map((amount) => (
                   <button
                     key={amount}
-                    className={`amount-btn p-2 rounded-md ${
+                    className={`amount-btn p-2 rounded-md cursor-pointer ${
                       selectedAmount === amount ? 'active' : ''
                     }`}
                     onClick={() => handleAmountSelect(amount as AmountOption)}
@@ -262,7 +262,7 @@ export default function TipJar() {
               
               <div className="mt-3 flex items-center">
                 <button
-                  className={`amount-btn p-2 rounded-md mr-2 ${
+                  className={`amount-btn p-2 rounded-md mr-2 cursor-pointer ${
                     selectedAmount === 'custom' ? 'active' : ''
                   }`}
                   onClick={() => handleAmountSelect('custom')}
@@ -297,7 +297,7 @@ export default function TipJar() {
             <button
               onClick={generateInvoice}
               disabled={isGeneratingInvoice}
-              className={`lightning-btn w-full py-3 px-4 rounded-md text-black font-bold flex items-center justify-center ${
+              className={`lightning-btn w-full py-3 px-4 rounded-md text-black font-bold flex items-center justify-center cursor-pointer ${
                 isGeneratingInvoice ? 'opacity-70 cursor-not-allowed' : ''
               }`}
             >
@@ -328,12 +328,11 @@ export default function TipJar() {
                 Scan the QR code or copy the invoice to pay {getAmount()} sats
               </p>
               
-              <div className="bg-white p-4 rounded-lg inline-block mb-4">
+              <div className="bg-white p-6 rounded-lg inline-block mb-4">
                 <QRCodeSVG
                   value={invoice}
                   size={200}
                   level="L"
-                  includeMargin={true}
                 />
               </div>
               
@@ -346,7 +345,7 @@ export default function TipJar() {
                 />
                 <button
                   onClick={copyToClipboard}
-                  className="bg-gray-700 px-3 rounded-r-md hover:bg-gray-600"
+                  className="bg-gray-700 px-3 rounded-r-md hover:bg-gray-600 cursor-pointer"
                 >
                   Copy
                 </button>
@@ -359,7 +358,7 @@ export default function TipJar() {
               {isDev && (
                 <button
                   onClick={simulatePay}
-                  className="text-xs py-1 px-2 bg-gray-700 rounded text-gray-300 hover:bg-gray-600"
+                  className="text-xs py-1 px-2 bg-gray-700 rounded text-gray-300 hover:bg-gray-600 cursor-pointer"
                 >
                   [DEV] Simulate Payment
                 </button>
@@ -368,7 +367,7 @@ export default function TipJar() {
             
             <button
               onClick={resetForm}
-              className="w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:bg-gray-800"
+              className="w-full py-2 px-4 border border-gray-600 rounded-md text-gray-300 hover:bg-gray-800 cursor-pointer"
             >
               Cancel
             </button>
