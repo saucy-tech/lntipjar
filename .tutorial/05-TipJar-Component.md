@@ -45,7 +45,8 @@ export default function TipJar() {
   const [customAmount, setCustomAmount] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [invoice, setInvoice] = useState<string>('');
-  const [paymentHash, setPaymentHash] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [paymentHash, setPaymentHash] = useState<string>(''); // Only used to store the hash for status checking
   const [error, setError] = useState<string>('');
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState({
@@ -126,8 +127,8 @@ export default function TipJar() {
       setPaymentHash(response.data.paymentHash);
       setState('pay');
       startPolling(response.data.paymentHash);
-    } catch (err: any) {
-      console.error('Error generating invoice:', err);
+    } catch (err) {
+      console.error('Error generating invoice:', err instanceof Error ? err.message : 'Unknown error');
       // Friendly error message regardless of error type
       setError("Sorry, we couldn't connect to the Lightning Network at this time. Please try again later.");
     } finally {
@@ -150,7 +151,7 @@ export default function TipJar() {
           setTimeout(() => setShowConfetti(false), 5000);
         }
       } catch (err) {
-        console.error('Error checking payment status:', err);
+        console.error('Error checking payment status:', err instanceof Error ? err.message : 'Unknown error');
         // We don't show errors during polling as it might be temporary
       }
     }, 3000);
@@ -179,7 +180,7 @@ export default function TipJar() {
       // Reset back to "Copy" after 3 seconds
       setTimeout(() => setCopyButtonText('Copy'), 3000);
     } catch (err) {
-      console.error('Failed to copy:', err);
+      console.error('Failed to copy:', err instanceof Error ? err.message : 'Unknown error');
       setCopyButtonText('Error');
       setTimeout(() => setCopyButtonText('Copy'), 3000);
     }
@@ -298,7 +299,7 @@ export default function TipJar() {
                   format="tertiary"
                   size="m"
                   onClick={copyToClipboard}
-                  className="rounded-l-none rounded-r-md w-[90px]"
+                  className="rounded-l-none rounded-r-md w-[120px]"
                 >
                   {copyButtonText}
                 </Button>
@@ -390,7 +391,7 @@ The TipJar component is complex, so let's break it down:
    - `generateInvoice`: Calls the API to generate a Lightning invoice
    - `startPolling`: Periodically checks if the invoice has been paid
    - `resetForm`: Resets the component to its initial state
-   - `copyToClipboard`: Copies the invoice to clipboard
+   - `copyToClipboard`: Copies the invoice to clipboard and updates button text
 
 4. **UI Rendering**:
    - The component renders different UIs based on the current state
