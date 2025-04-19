@@ -23,6 +23,7 @@ export default function TipJar() {
     height: 800
   });
   const [isGeneratingInvoice, setIsGeneratingInvoice] = useState<boolean>(false);
+  const [copyButtonText, setCopyButtonText] = useState<string>('Copy');
   
   const pollTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -134,6 +135,7 @@ export default function TipJar() {
     setPaymentHash('');
     setError('');
     setShowConfetti(false);
+    setCopyButtonText('Copy');
     
     if (pollTimerRef.current) {
       clearInterval(pollTimerRef.current);
@@ -143,9 +145,13 @@ export default function TipJar() {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(invoice);
-      alert('Invoice copied to clipboard!');
+      setCopyButtonText('Copied!');
+      // Reset back to "Copy" after 3 seconds
+      setTimeout(() => setCopyButtonText('Copy'), 3000);
     } catch (err) {
       console.error('Failed to copy:', err);
+      setCopyButtonText('Error');
+      setTimeout(() => setCopyButtonText('Copy'), 3000);
     }
   };
 
@@ -262,9 +268,9 @@ export default function TipJar() {
                   format="tertiary"
                   size="m"
                   onClick={copyToClipboard}
-                  className="rounded-l-none rounded-r-md"
+                  className="rounded-l-none rounded-r-md w-[120px]"
                 >
-                  Copy
+                  {copyButtonText}
                 </Button>
               </div>
               
