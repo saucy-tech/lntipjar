@@ -40,14 +40,7 @@ A simple web application that allows users to leave tips using the Bitcoin Light
 
 This application requires a valid LNBits setup to function properly. You must configure your environment variables with valid LNBits API keys for both development and production use.
 
-## Deployment
-
-The application can be deployed to Vercel:
-
-1. Push your code to a GitHub repository
-2. Connect your repository to Vercel
-3. Add your environment variables in the Vercel dashboard
-4. Deploy!
+[LNBits API Docs](https://docs.lnbits.org/)
 
 ## License
 
@@ -55,4 +48,4 @@ The application can be deployed to Vercel:
 
 ---
 
-⚡ Built by ATL Bitcoin Lab
+⚡ Built by [ATL BitLab](https://atlbitlab.com)
