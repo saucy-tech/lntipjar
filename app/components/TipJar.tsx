@@ -287,21 +287,8 @@ export default function TipJar() {
         {state === 'success' && (
           <div className="space-y-6 text-center">
             <div>
-              <div className="w-16 h-16 bg-green-500 rounded-full mx-auto flex items-center justify-center mb-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
+              <div className="text-7xl mx-auto mb-4">
+               🤘
               </div>
               <h2 className="text-xl font-bold mb-2 gradient-text">Thank You!</h2>
               <p className="text-gray-300 mb-6">
