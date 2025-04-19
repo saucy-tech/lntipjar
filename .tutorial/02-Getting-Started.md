@@ -6,6 +6,20 @@ We are going to be building this: https://lntipjar.netlify.app/
 
 ## What is the architecture?
 
+```mermaid
+flowchart LR
+    User((User)) <--> NextJS[Lightning Tip Jar\nNext.js App]
+    subgraph "Your Infrastructure"
+        NextJS <-->|API Calls| LNBits[LNBits\nAccount System]
+        LNBits <-->|Lightning API| Phoenixd[phoenixd\nLightning Node]
+    end
+    Phoenixd <-->|Lightning Network\nProtocol| LN[(Lightning\nNetwork)]
+    style NextJS fill:#4F46E5,color:white
+    style LNBits fill:#10B981,color:white
+    style Phoenixd fill:#F59E0B,color:white
+    style LN fill:#EC4899,color:white
+```
+
 This project uses:
 
 ### NextJS
