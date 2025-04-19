@@ -1,0 +1,22 @@
+# Table of Contents
+
+- Project Overview
+  - What are we building?
+  - What is the architecture?
+    - NextJS
+    - LNBits
+    - phoenixd
+    - Deployment Platforms
+- Project Setup
+  - Install NextJS
+  - Cleanup unneeded stuff
+- Frontend UI
+  - Styling
+  - Button Component
+  - Tip Jar Component
+- LNBits Connection
+  - API Routes
+  - Get Invoice
+  - Frontend Polling
+  - Payment Complete
+- Conclusion
