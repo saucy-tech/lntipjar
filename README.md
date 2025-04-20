@@ -8,39 +8,42 @@ A simple web application that allows users to leave tips using the Bitcoin Light
 - React 19
 - TypeScript
 - TailwindCSS
-- LNBits API for Lightning Network integration
+- Nostr Wallet Connect (via @getalby/sdk) for Lightning Network integration
 
 ## Setup
 
 1. Clone the repository
+
    ```
    git clone https://github.com/ATLBitLab/lntipjar.git
    cd lntipjar
    ```
 
 2. Install dependencies
+
    ```
    yarn install
    ```
 
-3. Create a `.env.local` file with your LNBits credentials
+3. Create a `.env.local` file and set your Nostr Wallet Connect URL:
+
    ```
-   LNBITS_INVOICE_READ_KEY=your-invoice-read-key
-   LNBITS_URL=https://legend.lnbits.com
+   NOSTR_WALLET_CONNECT_URL=nostr+walletconnect://<your-connect-url>
    ```
 
 4. Run the development server
+
    ```
    yarn dev
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## LNBits Configuration
+## Nostr Wallet Connect Configuration
 
-This application requires a valid LNBits setup to function properly. You must configure your environment variables with valid LNBits API keys for both development and production use.
+This application uses the [GetAlby SDK](https://www.npmjs.com/package/@getalby/sdk) and the Nostr Wallet Connect protocol. Ensure `NOSTR_WALLET_CONNECT_URL` is set in your environment with a valid connect URL from your Nostr wallet or Alby.
 
-[LNBits API Docs](https://docs.lnbits.org/)
+[GetAlby SDK Docs](https://www.npmjs.com/package/@getalby/sdk)
 
 ## License
 
