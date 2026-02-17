@@ -14,7 +14,7 @@
     "classnames": "^2.5.1",
     "confetti-react": "^2.6.0",
     "lnurl-pay": "^4.0.0",
-    "next": "15.3.1",
+    "next": "15.3.8",
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-confetti": "^6.4.0",
