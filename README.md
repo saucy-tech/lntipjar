@@ -1,49 +1,75 @@
 # Lightning Tip Jar
 
-A simple web application that allows users to leave tips using the Bitcoin Lightning Network.
+A small Next.js web app that accepts Bitcoin Lightning tips. Pick (or type) a sat amount, leave an optional message, and pay the generated invoice from any Lightning wallet. The page polls invoice status and celebrates with confetti on payment.
+
+Built by [ATL BitLab](https://atlbitlab.com).
+
+![Lightning Tip Jar](public/lightning-tip-jar.jpg)
 
 ## Tech Stack
 
-- Next.js 15
+- Next.js 15 (App Router, Turbopack dev)
 - React 19
-- TypeScript
-- TailwindCSS
-- Nostr Wallet Connect (via @getalby/sdk) for Lightning Network integration
+- TypeScript 5
+- TailwindCSS 4
+- Lightning via [`@getalby/sdk`](https://www.npmjs.com/package/@getalby/sdk) over Nostr Wallet Connect (NWC)
+- `qrcode.react`, `react-confetti`, `axios`
+
+## How It Works
+
+- **`POST /api/invoice`** — server creates a Lightning invoice via NWC `makeInvoice` and returns `{ paymentRequest, paymentHash }`.
+- **`GET /api/invoice?paymentHash=...`** — server calls NWC `lookupInvoice`; client polls every 3s until `settled_at` is set.
+- The `ws` package is shimmed onto `globalThis.WebSocket` so the NWC client can connect from a Next.js Route Handler.
 
 ## Setup
 
-1. Clone the repository
-
+1. Clone:
    ```
    git clone https://github.com/ATLBitLab/lntipjar.git
    cd lntipjar
    ```
-
-2. Install dependencies
-
+2. Install:
    ```
    yarn install
    ```
-
-3. Create a `.env.local` file and set your Nostr Wallet Connect URL:
-
+3. Create `.env.local` with a Nostr Wallet Connect URL from your wallet (Alby, Mutiny, Coinos, etc.):
    ```
    NOSTR_WALLET_CONNECT_URL=nostr+walletconnect://<your-connect-url>
    ```
-
-4. Run the development server
-
+   See `.env.example`.
+4. Run:
    ```
    yarn dev
    ```
+5. Open <http://localhost:3000>.
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+## Scripts
 
-## Nostr Wallet Connect Configuration
+| Command       | What it does                       |
+|---------------|------------------------------------|
+| `yarn dev`    | Dev server (Turbopack) on :3000    |
+| `yarn build`  | Production build                   |
+| `yarn start`  | Start production server            |
+| `yarn lint`   | ESLint (`next/core-web-vitals`)    |
 
-This application uses the [GetAlby SDK](https://www.npmjs.com/package/@getalby/sdk) and the Nostr Wallet Connect protocol. Ensure `NOSTR_WALLET_CONNECT_URL` is set in your environment with a valid connect URL from your Nostr wallet or Alby.
+## Project Layout
 
-[GetAlby SDK Docs](https://www.npmjs.com/package/@getalby/sdk)
+```
+app/
+  api/invoice/route.ts   # POST creates invoice, GET checks status
+  components/
+    TipJar.tsx           # Main UI (client)
+    TipJarWrapper.tsx    # Dynamic import wrapper, ssr: false
+    Button.tsx           # Shared button
+  layout.tsx             # Root layout, metadata, OG tags
+  page.tsx               # Home
+  globals.css
+public/                  # Images, favicon
+```
+
+## Configuration
+
+`NOSTR_WALLET_CONNECT_URL` (required) — NWC URI of the wallet that will issue and look up invoices.
 
 ## License
 
@@ -51,4 +77,4 @@ This application uses the [GetAlby SDK](https://www.npmjs.com/package/@getalby/s
 
 ---
 
-⚡ Built by [ATL BitLab](https://atlbitlab.com)
+Built by [ATL BitLab](https://atlbitlab.com).
