@@ -6,15 +6,19 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@getalby/sdk": "^5.0.0",
+    "@opennextjs/cloudflare": "^1.19.11",
     "axios": "^1.8.4",
     "classnames": "^2.5.1",
     "confetti-react": "^2.6.0",
     "lnurl-pay": "^4.0.0",
-    "next": "15.3.8",
+    "next": "^15.5.18",
     "qrcode.react": "^4.2.0",
     "react": "^19.0.0",
     "react-confetti": "^6.4.0",
@@ -31,7 +35,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.100.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
