@@ -2,13 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 // @ts-expect-error no type declarations for ws
 import WebSocket from "ws";
 
-// Ensure global WebSocket is available for Nostr Wallet Connect
+// Ensure a global WebSocket is available for Nostr Wallet Connect.
+// Cloudflare Workers (and Node >= 22) ship a native client whose upgrade
+// path the ws package can't use there — only shim when nothing native exists.
 declare global {
   interface GlobalThis {
     WebSocket: typeof WebSocket;
   }
 }
-globalThis.WebSocket = WebSocket;
+if (typeof globalThis.WebSocket === "undefined") {
+  globalThis.WebSocket = WebSocket;
+}
 
 import { nwc } from "@getalby/sdk";
 const NWC_URL = process.env.NOSTR_WALLET_CONNECT_URL || "";
