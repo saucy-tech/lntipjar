@@ -43,3 +43,10 @@ next-env.d.ts
 # AI agent local context (never commit)
 CLAUDE.md
 AGENTS.md
+
+# cloudflare
+.open-next/
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example

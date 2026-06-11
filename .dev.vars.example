@@ -1,0 +1,4 @@
+NEXTJS_ENV=development
+# Nostr Wallet Connect URI (nostr+walletconnect://...) — set real value via
+# `wrangler secret put NOSTR_WALLET_CONNECT_URL` or a local untracked .dev.vars
+NOSTR_WALLET_CONNECT_URL=
