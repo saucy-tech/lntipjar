@@ -71,6 +71,17 @@ public/                  # Images, favicon
 
 `NOSTR_WALLET_CONNECT_URL` (required) — NWC URI of the wallet that will issue and look up invoices.
 
+## Deploy (Cloudflare Workers)
+
+Runs on Cloudflare Workers via OpenNext; live at <https://lntipjar.brandonsauceda.workers.dev>.
+
+```
+npx wrangler secret put NOSTR_WALLET_CONNECT_URL
+yarn deploy   # opennextjs-cloudflare build && deploy -- --keep-vars
+```
+
+`yarn preview` runs the Workers build locally. The `ws` shim is conditional, so NWC WebSockets work in both Node dev and the Workers runtime.
+
 ## License
 
 [MIT License](LICENSE)
